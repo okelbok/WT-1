@@ -1,0 +1,204 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+.date-input {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid var(--additional-color);
+    margin: 5px 0 10px 0;
+}
+
+.date-input-container {
+    border: none;
+}
+
+.datepicker-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.datepicker {
+    z-index: 100;
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.datepicker button {
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: 0.3s;
+    touch-action: manipulation;
+}
+
+.days,
+.dates {
+    display: grid;
+    grid-template-columns: repeat(7, 30px);
+    gap: 10px;
+    margin-block: 10px;
+}
+
+.days span {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.dates button {
+    color: slategray;
+    aspect-ratio: 1;
+}
+
+.dates button:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    user-select: none;
+}
+
+.dates button:hover {
+    background: rgba(119, 136, 153, 0.1);
+}
+
+.dates button.today {
+    background: rgba(147, 112, 216, 0.2);
+    color: var(--main-color);
+}
+
+.dates button.selected {
+    background: var(--main-color);
+    color: #fff;
+}
+
+.datepicker-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--additional-color);
+}
+
+.datepicker-header select,
+.datepicker-header input {
+    font-size: 14px;
+    border: 1px solid var(--additional-color);
+}
+
+.datepicker-header input {
+    max-width: 64px;
+}
+
+.datepicker-header button {
+    color: slategray;
+}
+
+.datepicker-header button:hover {
+    color: var(--main-color);
+}
+
+.datepicker-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--additional-color);
+}
+
+.datepicker-footer button {
+    width: 6rem;
+    padding: 3px 10px;
+    display: inline-block;
+    margin: 5px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    transition: color 0.5s;
+    z-index: 1;
+    font-size: 16px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+button.apply {
+    background: var(--main-color);
+    color: white;
+}
+
+button.apply:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background: white;
+    border: 2px solid var(--main-color);
+    height: 150px;
+    width: 200px;
+    border-radius: 50%;
+}
+
+button.apply:hover {
+    color: black;
+    border: 2px solid var(--main-color);
+}
+
+button.apply:before {
+    top: 100%;
+    left: 100%;
+    transition: all 0.7s;
+    border: 2px solid var(--main-color);
+}
+
+button.apply:hover:before {
+    top: -30px;
+    left: -30px;
+    border: 2px solid var(--main-color);
+}
+
+button.apply:active:before {
+    background: #3a0ca3;
+    transition: background 0s;
+}
+
+button.cancel {
+    background: white;
+    color: black;
+    border: 2px solid var(--main-color);
+}
+
+button.cancel:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background: var(--main-color);
+    height: 150px;
+    width: 200px;
+    border-radius: 50%;
+}
+
+button.cancel:hover {
+    color: white;
+}
+
+button.cancel:before {
+    top: 100%;
+    left: 100%;
+    transition: all 0.7s;
+}
+
+button.cancel:hover:before {
+    top: -30px;
+    left: -30px;
+}
+
+button.cancel:active:before {
+    background: #3a0ca3;
+    transition: background 0s;
+}
