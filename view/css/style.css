@@ -215,10 +215,6 @@ main {
     justify-content: center;
 }
 
-.cat-container:hover {
-    cursor: url("https://img.icons8.com/?size=100&id=yHHKfGb6BxjU&format=png&color=000000"), auto;
-}
-
 .cat {
     box-sizing: border-box;
     max-height: 440px;
@@ -239,7 +235,6 @@ main {
 }
 
 .cat:hover {
-    cursor: url("https://img.icons8.com/?size=100&id=yHHKfGb6BxjU&format=png&color=000000"), auto;
     border: 1px solid black;
     transform: scale(1.05);
 }
