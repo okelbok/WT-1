@@ -1,0 +1,244 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap");
+@import "calendar.css";
+
+:root {
+    --main-color: #4b0082;
+    --additional-color: floralwhite;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to right, var(--main-color), var(--additional-color));
+    font-family: "Poppins", sans-serif;
+}
+
+header {
+    height: 5rem;
+    background: radial-gradient(circle, var(--additional-color) 0%, var(--main-color) 100%);
+    display: flex;
+    flex-direction: row;
+    justify-content: normal;
+    align-items: center;
+    gap: 20px;
+    border-radius: 0 0 10px 10px;
+    border: 10px black;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.site-name,
+.current-date-name {
+    font-size: 2rem;
+    font-weight: bolder;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.site-description {
+    padding-left: 32px;
+}
+
+.additional-description {
+    padding: 32px;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+}
+
+.controls-container {
+    width: 25%;
+    height: 32rem;
+    margin: 20px 0 10px 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    padding: 32px;
+    overflow: hidden;
+    border-radius: 0 10px 10px 0;
+    background: var(--main-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.data-container {
+    width: 70%;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    margin: 20px 40px 10px 40px;
+    padding: 32px;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 5px black;
+    background: var(--additional-color);
+}
+
+.current-date-header {
+    padding-bottom: 10px;
+    border-bottom: 2px black solid;
+}
+
+.info-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-header {
+    font-size: 1.5rem;
+    margin: 10px 15px 0 15px;
+}
+
+.positions-container,
+.moon-phase-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0 0 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    height: 27rem;
+    overflow: auto;
+}
+
+.positions-container {
+    border-radius: 10px 0 0 10px;
+    border-right: 1px black solid;
+    width: 42rem;
+    flex-direction: column;
+    justify-content: left;
+    align-items: center;
+}
+
+.positions-container::-webkit-scrollbar-track
+{
+    border-radius: 10px;
+    background-color: var(--additional-color);
+}
+
+.positions-container::-webkit-scrollbar
+{
+    width: 5px;
+    background-color: var(--additional-color);
+}
+
+.positions-container::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    background-color: var(--main-color);
+}
+
+.positions-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.data-card {
+    width: auto;
+    background: var(--main-color);
+    color: var(--additional-color);
+    margin: 10px 5px 10px 15px;
+    padding: 5px;
+    border-radius: 10px;
+    transition: 0.1s ease-out;
+    border: 1px solid var(--additional-color);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.data-card:hover {
+    border-color: var(--main-color);
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.5);
+}
+
+.data-card-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.body-info {
+    padding: 0 10px 10px 10px;
+}
+
+.moon-phase-container {
+    border-radius: 0 10px 10px 0;
+    border-left: 1px black solid;
+    width: 22rem;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.moon-phase {
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid white;
+    box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    font-weight: bolder;
+    color: black;
+}
+
+.moon-phase:hover {
+    border: 1px solid black;
+    transform: scale(1.05);
+}
+
+.moon-phase:active {
+    transform: scale(0.95) rotateZ(1.7deg);
+}
+
+.cat-container {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.cat {
+    box-sizing: border-box;
+    max-height: 440px;
+    background: rgba(217, 217, 217, 0.58);
+    border: 1px solid white;
+    box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(6px);
+    border-radius: 17px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    font-weight: bolder;
+    color: black;
+}
+
+.cat:hover {
+    border: 1px solid black;
+    transform: scale(1.05);
+}
+
+.cat:active {
+    transform: scale(0.95) rotateZ(1.7deg);
+}

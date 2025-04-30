@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="/AstroCalendar/view/public/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/AstroCalendar/view/admin/css/admin_style.css"/>
+    <script type="module" src="/AstroCalendar/view/admin/js/admin_script.js?version=1.0"></script>
+    <title>Edit File Contents</title>
+</head>
+<body>
+<div class="file-editor">
+    <h2>Editing: {fileName}</h2>
+    <form action="/admin/files/save" method="post">
+        <input type="hidden" name="file_path" value="{filePath}">
+        <label>
+            <textarea name="content" class="editor">{fileContent}</textarea>
+        </label>
+        <div class="editor-actions">
+            <button type="submit" class="btn primary">Save</button>
+            <a href="/admin/files?dir={currentDir}" class="btn">Cancel</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

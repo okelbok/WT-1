@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="/AstroCalendar/view/public/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/AstroCalendar/view/admin/css/admin_style.css"/>
+    <script type="module" src="/AstroCalendar/view/admin/js/admin_script.js?version=1.0"></script>
+    <title>AstroCalendar Admin Panel</title>
+</head>
+<body>
+<div class="file-manager">
+    <div class="actions">
+        <form action="/admin/files/upload" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="dir" value="{currentDir}">
+            <input type="file" name="file" placeholder="" required>
+            <button type="submit">Upload</button>
+        </form>
+
+        <form action="/admin/files/create-dir" method="post">
+            <label>
+                <input type="text" name="new_dir_name" placeholder="New Directory" required>
+            </label>
+            <button type="submit">Create Directory</button>
+        </form>
+    </div>
+
+    <h2>Current Directory: {currentDir}</h2>
+
+    <table class="file-table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Size</th>
+            <th>Last Changed</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach $files as $file}
+        <tr>
+            <td>
+                {if is_dir($file['path'])}📁{else}📄{endif}
+                {file['name']}
+            </td>
+            <td>{if is_dir($file['path'])}Directory{else}File{endif}</td>
+            <td>{file['size']}</td>
+            <td>{file['modified']}</td>
+            <td class="actions">
+                {if !is_dir($file['path'])}
+                <a href="/admin/files/edit?file={file['path']}" class="btn">Edit</a>
+                {endif}
+                <form action="/admin/files/delete" method="post" onsubmit="return confirm('Are you sure?')">
+                    <input type="hidden" name="path" value="{file['path']}">
+                    <button type="submit" class="btn danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {endforeach}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
