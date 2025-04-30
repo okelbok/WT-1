@@ -91,6 +91,7 @@ main {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    flex-wrap: wrap;
     align-items: center;
 }
 
@@ -112,7 +113,7 @@ main {
 .positions-container {
     border-radius: 10px 0 0 10px;
     border-right: 1px black solid;
-    width: 42rem;
+    width: 40rem;
     flex-direction: column;
     justify-content: left;
     align-items: center;
@@ -176,7 +177,7 @@ main {
 .moon-phase-container {
     border-radius: 0 10px 10px 0;
     border-left: 1px black solid;
-    width: 22rem;
+    width: 20rem;
     justify-content: flex-start;
     align-items: center;
 }
@@ -203,42 +204,5 @@ main {
 }
 
 .moon-phase:active {
-    transform: scale(0.95) rotateZ(1.7deg);
-}
-
-.cat-container {
-    width: 100%;
-    height: 90%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-
-.cat {
-    box-sizing: border-box;
-    max-height: 440px;
-    background: rgba(217, 217, 217, 0.58);
-    border: 1px solid white;
-    box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
-    backdrop-filter: blur(6px);
-    border-radius: 17px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.5s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    user-select: none;
-    font-weight: bolder;
-    color: black;
-}
-
-.cat:hover {
-    border: 1px solid black;
-    transform: scale(1.05);
-}
-
-.cat:active {
     transform: scale(0.95) rotateZ(1.7deg);
 }

@@ -2,38 +2,31 @@
 
 class MoonPhase extends Entity {
     private int $id;
-    private string $name;
-    private float $timestamp;
+    private string $imageUrl;
 
-    function __construct(int $id) {
+    function __construct(int $id, string $imageUrl) {
         $this->id = $id;
+        $this->imageUrl = $imageUrl;
     }
 
     public function getId(): int {
         return $this->id;
     }
 
-    public function setId(int $id): MoonPhase {
+    public function setId(int $id): int {
         $this->id = $id;
-        return $this;
+
+        return $this->id;
     }
 
-    public function getName(): string {
-        return $this->name;
+    public function getImageUrl(): string {
+        return $this->imageUrl;
     }
 
-    public function setName(string $name): MoonPhase {
-        $this->name = $name;
-        return $this;
-    }
+    public function setImageUrl(string $imageUrl): string {
+        $this->imageUrl = $imageUrl;
 
-    public function getTimestamp(): float {
-        return $this->timestamp;
-    }
-
-    public function setTimestamp(float $timestamp): MoonPhase {
-        $this->timestamp = $timestamp;
-        return $this;
+        return $this->imageUrl;
     }
 }
 

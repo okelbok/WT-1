@@ -20,9 +20,10 @@ class BodiesList extends Entity {
         return $this->id;
     }
 
-    public function setId(int $id): BodiesList {
+    public function setId(int $id): int {
         $this->id = $id;
-        return $this;
+
+        return $this->id;
     }
 
     public function getBodies(): array {

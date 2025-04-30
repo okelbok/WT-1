@@ -5,5 +5,5 @@ abstract class Entity {
 
     abstract public function getId(): int;
 
-    abstract public function setId(int $id): Entity;
+    abstract public function setId(int $id): int;
 }

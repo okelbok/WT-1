@@ -3,7 +3,7 @@
 class Router {
     private string $basePath = "/AstroCalendar";
     private array $routes = [
-        '/' => ['BodiesListController', 'listAction'],
+        '/' => ['AstroDataController', 'listAction'],
 
         '/admin/files' => ['AdminController', 'listAction'],
         '/admin/files/upload' => ['AdminController', 'fileUploadAction'],
@@ -36,16 +36,14 @@ class Router {
 
         if (!array_key_exists($path, $this->routes)) {
             http_response_code(404);
-            echo "Page not found";
-            return;
+            exit;
         }
 
         [$controllerClass, $method] = $this->routes[$path];
 
         if (!$this->classExists($controllerClass) || !method_exists($controllerClass, $method)) {
             http_response_code(404);
-            echo "Page not found";
-            return;
+            exit;
         }
 
         $controller = new $controllerClass();

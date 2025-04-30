@@ -1,0 +1,39 @@
+<div class="info-container" style="{if isApplied}display: flex;{else}display: none;{endif}">
+    <div class="positions-container">
+        <h2 class="info-header">Bodies Positions</h2>
+        <div class="positions-wrapper">
+            {foreach $bodies as $body}
+            <div class="data-card">
+                <div class="data-card-header">
+                    <img class="body-image"
+                         src="/AstroCalendar/view/public/css//images/{$body['imageName']}.png"
+                         alt="{$body['name']}">
+                    <h3 class="body-name">{$body['name']}</h3>
+                </div>
+                <div class="body-info">
+                    <p><strong>Horizontal coordinates:</strong></p>
+                    <p>Altitude: {$body['horizontalCoordinates']['altitude']}°</p>
+                    <p>Azimuth: {$body['equatorialCoordinates']['azimuth']}°</p>
+
+                    <p><strong>Equatorial coordinates:</strong></p>
+                    <p>Right ascension: {$body['equatorialCoordinates']['rightAscention']}h</p>
+                    <p>Declination: {$body['equatorialCoordinates']['declination']}°</p>
+
+                    <p><strong>Constellation:</strong> {$body['constellation']}</p>
+
+                    {if $body['name'] !== 'Earth'}
+                    <p><strong>Elongation:</strong> {$body['elongation']}</p>
+                    <p><strong>Magnitude:</strong> {$body['getMagnitude']}</p>
+                    {endif}
+
+                    {if $body['name'] === 'Moon'}
+                    <p><strong>Phase characteristics:</strong></p>
+                    <p>Angle: {$body['phaseCharacteristics']['angle']}</p>
+                    <p>Fraction: {$body['phaseCharacteristics']['fraction']}</p>
+                    {endif}
+                </div>
+            </div>
+            {endforeach}
+        </div>
+    </div>
+</div>

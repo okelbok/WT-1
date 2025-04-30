@@ -9,6 +9,7 @@ require_once __DIR__ . "/../Service/AdminService.php";
 class AdminController extends BaseController {
     private templateEngine $templateEngine;
     private AdminService $adminService;
+    private string $templateBasePath  = __DIR__ . "/../view/admin/html/";
 
     public function __construct()
     {
@@ -16,12 +17,23 @@ class AdminController extends BaseController {
         $this->adminService = new AdminService();
     }
 
+    protected function renderTemplate(string $filePath, array $data = []): string {
+        $filePath = $this->templateBasePath . $filePath;
+        $htmlResponse = "";
+
+        if (file_exists($filePath)) {
+            $htmlResponse = $this->templateEngine->render($filePath, $data);
+        }
+
+        return $htmlResponse;
+    }
+
     public function listAction(): void
     {
         $currentDir = $_GET["dir"] ?? $this->adminService->getBasePath();
         $files = $this->adminService->getFiles($currentDir);
 
-        echo $this->templateEngine->render(__DIR__ . '/../view/admin/html/admin_index.html', [
+        echo $this->renderTemplate("admin_index.html", [
             'files' => $files,
             'currentDir' => $currentDir,
             'message' => $_GET['message'] ?? null,
@@ -67,7 +79,7 @@ class AdminController extends BaseController {
         $filePath = $_GET['file'] ?? '';
         $content = $this->adminService->getFileContent($filePath);
 
-        echo $this->templateEngine->render(__DIR__ . '/../view/admin/html/admin_file_editing.html', [
+        echo $this->renderTemplate('admin_file_editing.html', [
             'filePath' => $filePath,
             'fileName' => basename($filePath),
             'fileContent' => $content,

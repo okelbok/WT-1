@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>AstroCalendar</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/AstroCalendar/view/public/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/AstroCalendar/view/public/css/style.css?version=1.0"/>
+    <script type="module" src="/AstroCalendar/view/public/js/calendar.js?version=1.0"></script>
+</head>
+<body>
+<header class="main-header">
+    <div class="site-name">
+        <img src="/AstroCalendar/view/public/images/favicon.ico" height="50" width="50" alt="oops">
+        <div>AstroCalendar: Astronomical Calendar</div>
+    </div>
+
+    <div class="site-description">
+        <ul>
+            <li>description of celestial bodies positions, useful for observation</li>
+            <li>detailed description and image of Moon Phase</li>
+        </ul>
+    </div>
+
+    <div class="additional-description">
+        <ul>
+            <li>and more...</li>
+        </ul>
+    </div>
+</header>
+
+<main>
+    <section class="controls-container">
+        <div class="datepicker-container">
+            <label class="date-input-container">
+                <input type="text" class="date-input" placeholder="Select date" readonly />
+            </label>
+
+            <div class="datepicker">
+                <div class="datepicker-header">
+                    <button class="prev">Prev</button>
+
+                    <div>
+                        <label class>
+                            <select class="month-input">
+                                <option>January</option>
+                                <option>February</option>
+                                <option>March</option>
+                                <option>April</option>
+                                <option>May</option>
+                                <option>June</option>
+                                <option>July</option>
+                                <option>August</option>
+                                <option>September</option>
+                                <option>October</option>
+                                <option>November</option>
+                                <option>December</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            <input type="number" class="year-input" min="1900" max="3000" />
+                        </label>
+                    </div>
+
+                    <button class="next">Next</button>
+                </div>
+
+                <div class="days">
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                    <span>Sun</span>
+                </div>
+
+                <div class="dates"></div>
+
+                <div class="datepicker-footer">
+                    <button class="cancel">Cancel</button>
+                    <button class="apply">Apply</button>
+                </div>
+            </div>
+        </div>
+
+        <script src="/AstroCalendar/view/public/js/script.js"></script>
+    </section>
+
+    <section class="data-container">
+        <div class="current-date-header">
+            <h1 class="current-date-name">
+                {if $isApplied}
+                Selected Date: {selectedDate}
+                {else}
+                No date selected
+                {endif}
+            </h1>
+        </div>
