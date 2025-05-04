@@ -29,7 +29,10 @@ class TemplateEngine {
         extract($data);
         ob_start();
 
-        eval('?>' . $templateContent);
+        $tempFile = tempnam(__DIR__ . "/../", '.tmp_tpl');
+        file_put_contents($tempFile, '?>' . $templateContent);
+        include $tempFile;
+        unlink($tempFile);
 
         return ob_get_clean();
     }

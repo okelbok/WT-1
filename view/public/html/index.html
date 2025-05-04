@@ -9,36 +9,38 @@
     <script type="module" src="/AstroCalendar/view/public/js/calendar.js?version=1.0"></script>
 </head>
 <body>
-    <header class="main-header">
-        <div class="site-name">
-            <img src="/AstroCalendar/view/public/images/favicon.ico" height="50" width="50" alt="oops">
-            <div>AstroCalendar: Astronomical Calendar</div>
-        </div>
+<header>
+    <div class="site-name">
+        <img src="/AstroCalendar/view/public/images/favicon.ico" height="50" width="50" alt="Whoops">
+        <div>AstroCalendar: Astronomical Calendar</div>
+    </div>
 
-        <div class="site-description">
-            <ul>
-                <li>description of celestial bodies positions, useful for observation</li>
-                <li>detailed description and image of Moon Phase</li>
-            </ul>
-        </div>
+    <div class="site-description">
+        <ul>
+            <li>description of celestial bodies positions, useful for observation</li>
+            <li>detailed description and image of Moon Phase</li>
+        </ul>
+    </div>
+</header>
 
-        <div class="additional-description">
-            <ul>
-                <li>and more...</li>
-            </ul>
-        </div>
-    </header>
-
-    <main>
-        <section class="controls-container">
+<main>
+    <section class="controls-container">
+        <form action="/AstroCalendar/" method="POST" enctype="multipart/form-data">
             <div class="datepicker-container">
-                <label class="date-input-container">
-                    <input type="text" class="date-input" placeholder="Select date" readonly />
+                <label class="date-input-container">Date:
+                    <input
+                            type="text"
+                            class="date-input"
+                            name="date"
+                            placeholder="Select date"
+                            required
+                            readonly
+                    />
                 </label>
 
                 <div class="datepicker">
                     <div class="datepicker-header">
-                        <button class="prev">Prev</button>
+                        <button class="prev" type="button">Prev</button>
 
                         <div>
                             <label class>
@@ -59,11 +61,16 @@
                             </label>
 
                             <label>
-                                <input type="number" class="year-input" min="1900" max="3000" />
+                                <input
+                                        type="number"
+                                        class="year-input"
+                                        min="1900"
+                                        max="3000"
+                                />
                             </label>
                         </div>
 
-                        <button class="next">Next</button>
+                        <button class="next" type="button">Next</button>
                     </div>
 
                     <div class="days">
@@ -78,19 +85,61 @@
 
                     <div class="dates"></div>
 
-                    <div class="datepicker-footer">
-                        <button class="cancel">Cancel</button>
-                        <button class="apply">Apply</button>
+                    <div class="datepicker-footer buttons-container">
+                        <button class="cancel" type="button">Cancel</button>
+                        <button class="apply" type="button">Apply</button>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section class="data-container">
-            <div class="current-date-header">
-                <h1 class="current-date-name">No date selected</h1>
+            <div class="coordinates-container">
+                <label class="coordinates-label">Latitude:
+                    <input
+                            type="text"
+                            class="coordinates-input"
+                            name="latitude"
+                            placeholder="Input latitude"
+                            required
+                    />
+                </label>
+
+                <label class="coordinates-label">Longitude:
+                    <input
+                            type="text"
+                            class="coordinates-input"
+                            name="longitude"
+                            placeholder="Input longitude"
+                            required
+                    />
+                </label>
+
+                <div class="form-buttons-container buttons-container">
+                    <button class="cancel" type="reset">Reset</button>
+                    <button class="apply" type="submit">Submit</button>
+                </div>
             </div>
-        </section>
-    </main>
+        </form>
+    </section>
+
+    <section class="data-container">
+        <div class="current-date-header">
+            <h1 class="current-date-name">No data received</h1>
+        </div>
+
+        <div class="info-container">
+            <div class="positions-container">
+                <h2 class="info-header">Bodies Positions</h2>
+                <div class="positions-wrapper"></div>
+            </div>
+
+            <div class="moon-phase-container">
+                <h2 class="info-header">Moon Phase</h2>
+                <img class="moon-phase" src="" alt="Moon Phase">
+            </div>
+        </div>
+    </section>
+
+    <script src="/AstroCalendar/view/public/js/script.js?version=1.0"></script>
+</main>
 </body>
 </html>

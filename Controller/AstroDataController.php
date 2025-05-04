@@ -34,24 +34,31 @@ class AstroDataController extends BaseController {
         echo file_get_contents(htmlspecialchars($this->templateBasePath . "/index.html"));
     }
 
+    private function getHeaderData(): array {
+        return [
+            "isApplied" => $_COOKIE["isApplied"] === "true",
+            "selectedDate" => $_COOKIE["selectedDate"],
+        ];
+    }
+
     private function executeAstroSearch(): void {
         $user = new User(
             rand(1, 255),
             [
-                $_COOKIE['latitude'],
-                $_COOKIE['longitude'],
+                'latitude' => $_COOKIE['latitude'],
+                'longitude' => $_COOKIE['longitude'],
             ],
             $_COOKIE['selectedDate'],
             $_COOKIE['time']
         );
 
-        $bodiesListData = $this->bodiesListService->fetchBodiesListData($user);
-        $moonPhaseData = $this->moonPhaseService->fetchMoonPhaseData($user);
+        $data = array_merge(
+            $this->getHeaderData(),
+            $this->bodiesListService->fetchBodiesListData($user),
+            $this->moonPhaseService->fetchMoonPhaseData($user)
+        );
 
-        echo $this->renderTemplate("header.html") .
-            $this->renderTemplate("bodies_list.html", $bodiesListData) .
-            $this->renderTemplate("moon_phase.html", $moonPhaseData) .
-            $this->renderTemplate("footer.html");
+        echo $this->renderTemplate($this->templateBasePath . "/result.html", $data);
     }
 
     public function listAction(): void

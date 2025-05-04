@@ -91,10 +91,62 @@
     <section class="data-container">
         <div class="current-date-header">
             <h1 class="current-date-name">
-                {if $isApplied}
+                {if isApplied}
                 Selected Date: {selectedDate}
                 {else}
                 No date selected
                 {endif}
             </h1>
         </div>
+
+        <div class="info-container" style="{if isApplied}display: flex;{else}display: none;{endif}">
+            <div class="positions-container">
+                <h2 class="info-header">Bodies Positions</h2>
+                <div class="positions-wrapper">
+                    {foreach $bodies as $body}
+                    <div class="data-card">
+                        <div class="data-card-header">
+                            <img class="body-image"
+                                 src="/AstroCalendar/view/public/css//images/{$body['imageName']}.png"
+                                 alt="{$body['name']}">
+                            <h3 class="body-name">{$body['name']}</h3>
+                        </div>
+                        <div class="body-info">
+                            <p><strong>Horizontal coordinates:</strong></p>
+                            <p>Altitude: {$body['horizontalCoordinates']['altitude']}°</p>
+                            <p>Azimuth: {$body['equatorialCoordinates']['azimuth']}°</p>
+
+                            <p><strong>Equatorial coordinates:</strong></p>
+                            <p>Right ascension: {$body['equatorialCoordinates']['rightAscention']}h</p>
+                            <p>Declination: {$body['equatorialCoordinates']['declination']}°</p>
+
+                            <p><strong>Constellation:</strong> {$body['constellation']}</p>
+
+                            {if $body['name'] !== 'Earth'}
+                            <p><strong>Elongation:</strong> {$body['elongation']}</p>
+                            <p><strong>Magnitude:</strong> {$body['getMagnitude']}</p>
+                            {endif}
+
+                            {if $body['name'] === 'Moon'}
+                            <p><strong>Phase characteristics:</strong></p>
+                            <p>Angle: {$body['phaseCharacteristics']['angle']}</p>
+                            <p>Fraction: {$body['phaseCharacteristics']['fraction']}</p>
+                            {endif}
+                        </div>
+                    </div>
+                    {endforeach}
+                </div>
+            </div>
+        </div>
+
+        <div class="moon-phase-container">
+            <h2 class="info-header">Moon Phase</h2>
+            <img class="moon-phase" src="{$moonPhase['imageUrl']}" alt="Moon Phase">
+        </div>
+
+    </section>
+</main>
+
+<script src="/AstroCalendar/view/public/js/script.js?version=1.0"></script>
+</body>
+</html>

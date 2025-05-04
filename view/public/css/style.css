@@ -1,139 +1,173 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap");
 @import "calendar.css";
 
+/* general elements */
+
 :root {
     --main-color: #4b0082;
     --additional-color: floralwhite;
+    --offset: 10px;
 }
 
 * {
+    font-family: "Poppins", sans-serif;
     margin: 0;
     padding: 0;
+
 }
 
 body {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
     background: linear-gradient(to right, var(--main-color), var(--additional-color));
-    font-family: "Poppins", sans-serif;
 }
 
+main {
+    max-height: 750px;
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-template-rows: 55% 20% 20% 5%;
+    grid-template-areas:
+    "controls data"
+    "controls data"
+    "controls data"
+    "controls data";
+}
+
+/* header */
+
 header {
-    height: 5rem;
-    background: radial-gradient(circle, var(--additional-color) 0%, var(--main-color) 100%);
+    height: 10%;
     display: flex;
     flex-direction: row;
     justify-content: normal;
     align-items: center;
-    gap: 20px;
-    border-radius: 0 0 10px 10px;
-    border: 10px black;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    gap: calc(2 * var(--offset));
+    border-radius: 0 0 var(--offset) var(--offset);
+    border: var(--offset) black;
+    box-shadow: 0 var(--offset) calc(2 * var(--offset)) rgba(0, 0, 0, 0.2);
+    background: radial-gradient(circle, var(--additional-color) 0%, var(--main-color) 100%);
 }
 
 .site-name,
 .current-date-name {
-    font-size: 2rem;
-    font-weight: bolder;
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px;
+    gap: var(--offset);
+    font-size: 2rem;
+    font-weight: bolder;
 }
 
 .site-description {
-    padding-left: 32px;
+    padding: calc(2 * var(--offset));
 }
 
-.additional-description {
-    padding: 32px;
-}
+/* main */
 
-main {
-    display: flex;
-    flex-direction: row;
-}
+/* controls */
 
 .controls-container {
-    width: 25%;
-    height: 32rem;
-    margin: 20px 0 10px 0;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    padding: 32px;
-    overflow: hidden;
-    border-radius: 0 10px 10px 0;
+    grid-area: controls;
+    padding: calc(2 * var(--offset));
+    margin-top: var(--offset);
+    box-shadow: 0 var(--offset) calc(2 * var(--offset)) rgba(0, 0, 0, 0.2);
+    border-radius: var(--offset);
     background: var(--main-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    gap: 30px;
 }
 
+.coordinates-container {
+    padding: var(--offset);
+    text-align: center;
+}
+
+.coordinates-label {
+    color: var(--additional-color);
+    font-weight: bolder;
+}
+
+.coordinates-input {
+    width: 85%;
+    padding: calc(var(--offset) + 2px);
+    font-size: 1rem;
+    border-radius: calc(var(--offset) / 2);
+    border: 1px solid var(--additional-color);
+    margin: var(--offset) 0 var(--offset) 0;
+}
+
+/* buttons */
+
+.form-buttons-container {
+    margin-top: var(--offset);
+    margin-bottom: var(--offset);
+    padding: var(--offset);
+    background: white;
+    border-radius: var(--offset);
+}
+
+/* data */
+
 .data-container {
-    width: 70%;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    margin: 20px 40px 10px 40px;
-    padding: 32px;
+    max-height: 95%;
+    grid-area: data;
+    box-shadow: 0 var(--offset) calc(2 * var(--offset)) rgba(0, 0, 0, 0.2);
+    margin: var(--offset) 0 0 var(--offset);
+    padding: calc(var(--offset) * 2);
     overflow: hidden;
-    border-radius: 10px;
-    border: 5px black;
+    border-radius: var(--offset) var(--offset) 0 var(--offset);
+    border: calc(var(--offset) / 2) black;
     background: var(--additional-color);
 }
 
 .current-date-header {
-    padding-bottom: 10px;
+    padding-bottom: var(--offset);
     border-bottom: 2px black solid;
 }
 
 .info-container {
+    max-height: 95%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: center;
+    align-items: stretch;
+    overflow: auto;
 }
 
 .info-header {
     font-size: 1.5rem;
-    margin: 10px 15px 0 15px;
+    margin: var(--offset) calc(var(--offset) * 1.5) 0 calc(var(--offset) * 1.5);
 }
 
 .positions-container,
 .moon-phase-container {
     display: flex;
     flex-direction: column;
-    margin: 20px 0 0 0;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    height: 27rem;
-    overflow: auto;
+    margin: calc(var(--offset) * 2) 0;
 }
 
 .positions-container {
-    border-radius: 10px 0 0 10px;
-    border-right: 1px black solid;
-    width: 40rem;
+    width: 65%;
+    border-radius: var(--offset) 0 0 10px;
+    border: 2px black solid;
     flex-direction: column;
     justify-content: left;
     align-items: center;
+    flex-wrap: nowrap;
+    overflow: auto;
 }
 
 .positions-container::-webkit-scrollbar-track
 {
-    border-radius: 10px;
+    border-radius: var(--offset);
     background-color: var(--additional-color);
 }
 
 .positions-container::-webkit-scrollbar
 {
-    width: 5px;
+    width: calc(var(--offset) / 2);
     background-color: var(--additional-color);
 }
 
 .positions-container::-webkit-scrollbar-thumb
 {
-    border-radius: 10px;
+    border-radius: var(--offset);
     background-color: var(--main-color);
 }
 
@@ -148,14 +182,14 @@ main {
     width: auto;
     background: var(--main-color);
     color: var(--additional-color);
-    margin: 10px 5px 10px 15px;
-    padding: 5px;
-    border-radius: 10px;
+    margin: var(--offset) calc(var(--offset) / 2) var(--offset) calc(var(--offset) / 1.5);
+    padding: calc(var(--offset) / 2);
+    border-radius: var(--offset);
     transition: 0.1s ease-out;
     border: 1px solid var(--additional-color);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: var(--offset);
 }
 
 .data-card:hover {
@@ -167,24 +201,24 @@ main {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px;
+    gap: var(--offset);
 }
 
 .body-info {
-    padding: 0 10px 10px 10px;
+    padding: 0 var(--offset);
 }
 
 .moon-phase-container {
-    border-radius: 0 10px 10px 0;
-    border-left: 1px black solid;
-    width: 20rem;
+    width: 35%;
+    border-radius: 0 var(--offset) var(--offset) 0;
+    border: 2px black solid;
     justify-content: flex-start;
     align-items: center;
 }
 
 .moon-phase {
-    margin-top: 10px;
-    border-radius: 10px;
+    margin-top: var(--offset);
+    border-radius: var(--offset);
     border: 1px solid white;
     box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
     text-align: center;

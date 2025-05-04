@@ -7,18 +7,10 @@ const cancelBtn = datepicker.querySelector(".cancel");
 const nextBtn = datepicker.querySelector(".next");
 const prevBtn = datepicker.querySelector(".prev");
 const dates = datepicker.querySelector(".dates");
-const months = monthInput.textContent.split("\n");
 
 let selectedDate = new Date();
 let year = selectedDate.getFullYear();
 let month = selectedDate.getMonth();
-
-async function sendPOSTRequest() {
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost/AstroCalendar');
-
-    xhr.send(null);
-}
 
 yearInput.addEventListener("change", async () => {
     const min = parseInt(yearInput.getAttribute("min"));
@@ -34,10 +26,7 @@ applyBtn.addEventListener("click", async () => {
         day: "2-digit",
     });
 
-    document.cookie = `selectedDate=${dateInput.value}`;
     displayDates();
-    document.cookie = "isApplied=true";
-    sendPOSTRequest().then();
 });
 
 cancelBtn.addEventListener("click",  () => {
@@ -47,10 +36,7 @@ cancelBtn.addEventListener("click",  () => {
     }
     selectedDate = new Date();
 
-    document.cookie = `selectedDate=`;
     displayDates();
-    document.cookie = "isApplied=false";
-    sendPOSTRequest().then();
 });
 
 nextBtn.addEventListener("click", () => {
@@ -138,6 +124,7 @@ const createButton = (text, isDisabled = false, type = 0) => {
     button.disabled = isDisabled;
     button.classList.toggle("today", isToday && !isDisabled);
     button.classList.toggle("selected", selected);
+    button.setAttribute("type", "button");
     return button;
 };
 

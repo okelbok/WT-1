@@ -41,24 +41,10 @@ class BodiesListService {
         ]);
 
         $response = curl_exec($ch);
-        $error = curl_error($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        if ($error) {
-            throw new RuntimeException("CURL error: " . $error);
-        }
-
-        if ($httpCode !== 200) {
-            throw new RuntimeException("API request failed with HTTP code: " . $httpCode);
-        }
-
         $data = json_decode($response, true);
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new RuntimeException("JSON decode error: " . json_last_error_msg());
-        }
 
-        // Преобразуем данные в нужный формат для шаблона
         $bodies = [];
         foreach ($data as $bodyData) {
             $body = [
@@ -77,7 +63,6 @@ class BodiesListService {
                 'getMagnitude' => $bodyData['magnitude'] ?? null
             ];
 
-            // Добавляем характеристики фазы для Луны
             if ($body['name'] === 'Moon') {
                 $body['phaseCharacteristics'] = [
                     'angle' => $bodyData['phase']['angle'] ?? 0,
