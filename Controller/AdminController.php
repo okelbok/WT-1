@@ -17,12 +17,12 @@ class AdminController extends BaseController {
         $this->adminService = new AdminService();
     }
 
-    protected function renderTemplate(string $filePath, array $data = []): string {
-        $filePath = $this->templateBasePath . $filePath;
+    protected function renderTemplate(string $fileName, array $data = []): string {
+        $fileName = $this->templateBasePath . $fileName;
         $htmlResponse = "";
 
-        if (file_exists($filePath)) {
-            $htmlResponse = $this->templateEngine->render($filePath, $data);
+        if (file_exists($fileName)) {
+            $htmlResponse = $this->templateEngine->render($fileName, $data);
         }
 
         return $htmlResponse;

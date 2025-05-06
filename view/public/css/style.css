@@ -21,7 +21,7 @@ body {
 }
 
 main {
-    max-height: 750px;
+    max-height: 850px;
     display: grid;
     grid-template-columns: 25% 75%;
     grid-template-rows: 55% 20% 20% 5%;

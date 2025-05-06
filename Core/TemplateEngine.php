@@ -29,8 +29,8 @@ class TemplateEngine {
         extract($data);
         ob_start();
 
-        $tempFile = tempnam(__DIR__ . "/../", '.tmp_tpl');
-        file_put_contents($tempFile, '?>' . $templateContent);
+        $tempFile = __DIR__ . "/../resources/.tmp_template";
+        file_put_contents($tempFile, $templateContent);
         include $tempFile;
         unlink($tempFile);
 
