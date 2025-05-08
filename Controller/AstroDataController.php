@@ -34,8 +34,6 @@ class AstroDataController extends BaseController {
     }
 
     private function getHeaderData(): array {
-        $date = (isset($_POST["date"])) ? DateTime::createFromFormat("d.m.Y", $_POST["date"]) : "";
-
         return [
             "isApplied" => isset($_POST["date"]),
             "date" => $_POST["date"] ?? "",
