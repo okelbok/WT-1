@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require_once 'Entity.php';
+require_once __DIR__.  "/Entity.php";
 
 class BodiesList extends Entity {
     private int $id;
@@ -30,8 +30,9 @@ class BodiesList extends Entity {
         return $this->bodies;
     }
 
-    public function setBodies(array $bodies): BodiesList {
+    public function setBodies(array $bodies): array {
         $this->bodies = $bodies;
-        return $this;
+
+        return $this->bodies;
     }
 }

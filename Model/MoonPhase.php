@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class MoonPhase extends Entity {
     private int $id;
     private string $imageUrl;
@@ -27,6 +29,12 @@ class MoonPhase extends Entity {
         $this->imageUrl = $imageUrl;
 
         return $this->imageUrl;
+    }
+
+    public function toArray(): array {
+        return [
+            "imageUrl" => $this->imageUrl,
+        ];
     }
 }
 

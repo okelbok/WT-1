@@ -1,18 +1,20 @@
 <?php
 
-require_once __DIR__.'/../Model/Entity.php';
+declare(strict_types=1);
+
+require_once __DIR__ . "/Entity.php";
 
 class User extends Entity {
     private int $id;
-    private array $coordinates = [];
+    private array $coordinates;
     private string $lastSelectedDate;
-    private string $lastTimeActive;
+    private string $lastSelectedTime;
 
     function __construct(int $id, array $coordinates, string $lastSelectedDate, string $lastTimeActive) {
         $this->id = $id;
         $this->coordinates = $coordinates;
         $this->lastSelectedDate = $lastSelectedDate;
-        $this->lastTimeActive = $lastTimeActive;
+        $this->lastSelectedTime = $lastTimeActive;
     }
 
     public function getId(): int {
@@ -30,8 +32,8 @@ class User extends Entity {
     }
 
     public function setCoordinates(float $longitude, float $latitude): array {
-        $this->coordinates['longitude'] = $longitude;
-        $this->coordinates['latitude'] = $latitude;
+        $this->coordinates["longitude"] = $longitude;
+        $this->coordinates["latitude"] = $latitude;
 
         return $this->coordinates;
     }
@@ -46,13 +48,13 @@ class User extends Entity {
         return $this->lastSelectedDate;
     }
 
-    public function getLastTimeActive(): string {
-        return $this->lastTimeActive;
+    public function getLastSelectedTime(): string {
+        return $this->lastSelectedTime;
     }
 
-    public function setLastTimeActive(string $lastTimeActive): string {
-        $this->lastTimeActive = $lastTimeActive;
+    public function setLastSelectedTime(string $lastSelectedTime): string {
+        $this->lastSelectedTime = $lastSelectedTime;
 
-        return $this->lastTimeActive;
+        return $this->lastSelectedTime;
     }
 }

@@ -98,6 +98,7 @@
                     <input
                             type="text"
                             class="coordinates-input"
+                            id="latitude-input"
                             name="latitude"
                             placeholder="Input latitude"
                             value="{latitude}"
@@ -109,6 +110,7 @@
                     <input
                             type="text"
                             class="coordinates-input"
+                            id="longitude-input"
                             name="longitude"
                             placeholder="Input longitude"
                             value="{longitude}"
@@ -127,8 +129,8 @@
                 </label>
 
                 <div class="form-buttons-container buttons-container">
-                    <button class="cancel" type="reset">Reset</button>
-                    <button class="apply" type="submit">Submit</button>
+                    <button class="cancel" id="reset-button" type="reset">Reset</button>
+                    <button class="apply" id="submit-button" type="submit">Submit</button>
                 </div>
             </div>
         </form>
@@ -154,30 +156,30 @@
                     <div class="data-card">
                         <div class="data-card-header">
                             <img class="body-image"
-                                 src="/AstroCalendar/view/public/css//images/{$body['imageName']}.png"
-                                 alt="{$body['name']}">
-                            <h3 class="body-name">{$body['name']}</h3>
+                                 src="/AstroCalendar/view/public/css//images/{body['imageName']}.png"
+                                 alt="{body['name']}">
+                            <h3 class="body-name">{body['name']}</h3>
                         </div>
                         <div class="body-info">
                             <p><strong>Horizontal coordinates:</strong></p>
-                            <p>Altitude: {$body['horizontalCoordinates']['altitude']}°</p>
-                            <p>Azimuth: {$body['equatorialCoordinates']['azimuth']}°</p>
+                            <p>Altitude: {body['horizontalCoordinates']['altitude']}°</p>
+                            <p>Azimuth: {body['equatorialCoordinates']['azimuth']}°</p>
 
                             <p><strong>Equatorial coordinates:</strong></p>
-                            <p>Right ascension: {$body['equatorialCoordinates']['rightAscention']}h</p>
-                            <p>Declination: {$body['equatorialCoordinates']['declination']}°</p>
+                            <p>Right ascension: {body['equatorialCoordinates']['rightAscension']}h</p>
+                            <p>Declination: {body['equatorialCoordinates']['declination']}°</p>
 
-                            <p><strong>Constellation:</strong> {$body['constellation']}</p>
+                            <p><strong>Constellation:</strong> {body['constellation']}</p>
 
                             {if $body['name'] !== 'Earth'}
-                            <p><strong>Elongation:</strong> {$body['elongation']}</p>
-                            <p><strong>Magnitude:</strong> {$body['getMagnitude']}</p>
+                            <p><strong>Elongation:</strong> {body['elongation']}</p>
+                            <p><strong>Magnitude:</strong> {body['magnitude']}</p>
                             {endif}
 
                             {if $body['name'] === 'Moon'}
                             <p><strong>Phase characteristics:</strong></p>
-                            <p>Angle: {$body['phaseCharacteristics']['angle']}</p>
-                            <p>Fraction: {$body['phaseCharacteristics']['fraction']}</p>
+                            <p>Angle: {body['phaseCharacteristics']['angle']}</p>
+                            <p>Fraction: {body['phaseCharacteristics']['fraction']}</p>
                             {endif}
                         </div>
                     </div>
@@ -187,7 +189,7 @@
 
             <div class="moon-phase-container">
                 <h2 class="info-header">Moon Phase</h2>
-                <img class="moon-phase" src="$moonPhase['imageUrl']}" alt="Moon Phase">
+                <img class="moon-phase" src="{moonPhase['imageUrl']}" alt="Moon Phase">
             </div>
             {endif}
         </div>

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class Router {
     private string $basePath = "/AstroCalendar";
     private array $routes = [

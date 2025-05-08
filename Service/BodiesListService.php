@@ -2,42 +2,42 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../Model/User.php';
-require_once __DIR__ . '/../Model/BodiesList.php';
+require_once __DIR__ . "/../Model/User.php";
+require_once __DIR__ . "/../Model/BodiesList.php";
 
 class BodiesListService {
     private string $apiBodiesListUrl;
     private string $apiKey;
 
     public function __construct() {
-        $this->apiBodiesListUrl = $_ENV['ASTRO_API_URL_POSITIONS'];
-        $this->apiKey = $_ENV['ASTRO_API_KEY'];
+        $this->apiBodiesListUrl = $_ENV["ASTRO_API_URL_POSITIONS"];
+        $this->apiKey = $_ENV["ASTRO_API_KEY"];
     }
 
     public function fetchBodiesListData(User $user): array {
         $coordinates = $user->getCoordinates();
-        $latitude = $coordinates['latitude'];
-        $longitude = $coordinates['longitude'];
+        $latitude = $coordinates["latitude"];
+        $longitude = $coordinates["longitude"];
         $date = $user->getLastSelectedDate();
-        $time = date('H:i:s', strtotime($user->getLastTimeActive()));
+        $time = date("H:i:s", strtotime($user->getLastSelectedTime()));
 
         $queryParams = http_build_query([
-            'longitude' => $longitude,
-            'latitude' => $latitude,
-            'elevation' => 0,
-            'from_date' => $date,
-            'to_date' => $date,
-            'time' => $time,
-            'output' => 'rows'
+            "longitude" => $longitude,
+            "latitude" => $latitude,
+            "elevation" => 0,
+            "from_date" => $date,
+            "to_date" => $date,
+            "time" => $time,
+            "output" => "rows"
         ]);
 
-        $url = $this->apiBodiesListUrl . '?' . $queryParams;
+        $url = $this->apiBodiesListUrl . "?" . $queryParams;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Authorization: ' . $this->apiKey
+            "Authorization: " . $this->apiKey
         ]);
 
         $response = curl_exec($ch);
@@ -48,25 +48,25 @@ class BodiesListService {
         $bodies = [];
         foreach ($data as $bodyData) {
             $body = [
-                'name' => $bodyData['name'] ?? 'Unknown',
-                'imageName' => strtolower($bodyData['name'] ?? 'unknown'),
-                'horizontalCoordinates' => [
-                    'altitude' => $bodyData['horizontal']['altitude'] ?? 0,
-                    'azimuth' => $bodyData['horizontal']['azimuth'] ?? 0
+                "name" => $bodyData["name"] ?? "Unknown",
+                "imageName" => strtolower($bodyData["name"] ?? "unknown"),
+                "horizontalCoordinates" => [
+                    "altitude" => $bodyData["horizontal"]["altitude"] ?? 0,
+                    "azimuth" => $bodyData["horizontal"]["azimuth"] ?? 0
                 ],
-                'equatorialCoordinates' => [
-                    'rightAscention' => $bodyData['equatorial']['rightAscension'] ?? 0,
-                    'declination' => $bodyData['equatorial']['declination'] ?? 0
+                "equatorialCoordinates" => [
+                    "rightAscension" => $bodyData["equatorial"]["rightAscension"] ?? 0,
+                    "declination" => $bodyData["equatorial"]["declination"] ?? 0
                 ],
-                'constellation' => $bodyData['constellation'] ?? '',
-                'elongation' => $bodyData['elongation'] ?? null,
-                'getMagnitude' => $bodyData['magnitude'] ?? null
+                "constellation" => $bodyData["constellation"] ?? "",
+                "elongation" => $bodyData["elongation"] ?? null,
+                "getMagnitude" => $bodyData["magnitude"] ?? null
             ];
 
-            if ($body['name'] === 'Moon') {
-                $body['phaseCharacteristics'] = [
-                    'angle' => $bodyData['phase']['angle'] ?? 0,
-                    'fraction' => $bodyData['phase']['fraction'] ?? 0
+            if ($body["name"] === "Moon") {
+                $body["phaseCharacteristics"] = [
+                    "angle" => $bodyData["phase"]["angle"] ?? 0,
+                    "fraction" => $bodyData["phase"]["fraction"] ?? 0
                 ];
             }
 

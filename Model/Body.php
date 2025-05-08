@@ -1,30 +1,41 @@
 <?php
 
+declare(strict_types=1);
+
 class Body {
     private string $name;
-    private array $horizontalCoordinates = [];
-    private array $equatorialCoordinates = [];
+    private array $horizontalCoordinates = [
+        "altitude" => null,
+        "azimuth" => null,
+    ];
+    private array $equatorialCoordinates = [
+        "rightAscension" => null,
+        "declination" => null,
+    ];
     private string $constellation;
     private float $elongation;
     private float $magnitude;
-    private array $phaseCharacteristics = [null, null];
+    private array $phaseCharacteristics = [
+        "angle" => null,
+        "fraction" => null,
+    ];
 
     function __construct(string $name,
-                         float $altitude, float $azimuth,
-                         float $rightAscention, float $declination,
+                         float  $altitude, float $azimuth,
+                         float  $rightAscension, float $declination,
                          string $constellation,
-                         float $elongation, float $magnitude,
-                         float $angle, float $fraction) {
+                         float  $elongation, float $magnitude,
+                         float  $angle, float $fraction) {
         $this->name = $name;
-        $this->horizontalCoordinates['altitude'] = $altitude;
-        $this->equatorialCoordinates['azimuth'] = $azimuth;
-        $this->equatorialCoordinates['rightAscention'] = $rightAscention;
-        $this->equatorialCoordinates['declination'] = $declination;
+        $this->horizontalCoordinates["altitude"] = $altitude;
+        $this->equatorialCoordinates["azimuth"] = $azimuth;
+        $this->equatorialCoordinates["rightAscension"] = $rightAscension;
+        $this->equatorialCoordinates["declination"] = $declination;
         $this->constellation = $constellation;
         $this->elongation = $elongation;
         $this->magnitude = $magnitude;
-        $this->phaseCharacteristics['angle'] = $angle;
-        $this->phaseCharacteristics['fraction'] = $fraction;
+        $this->phaseCharacteristics["angle"] = $angle;
+        $this->phaseCharacteristics["fraction"] = $fraction;
     }
 
     public function getName(): string {
@@ -41,8 +52,8 @@ class Body {
     }
 
     public function setHorizontalCoordinates(float $altitude, float $azimuth): Body {
-        $this->horizontalCoordinates['altitude'] = $altitude;
-        $this->equatorialCoordinates['azimuth'] = $azimuth;
+        $this->horizontalCoordinates["altitude"] = $altitude;
+        $this->equatorialCoordinates["azimuth"] = $azimuth;
         return $this;
     }
 
@@ -50,9 +61,9 @@ class Body {
         return $this->equatorialCoordinates;
     }
 
-    public function setEquatorialCoordinates(float $rightAscention, float $declination): Body {
-        $this->equatorialCoordinates['rightAscention'] = $rightAscention;
-        $this->equatorialCoordinates['declination'] = $declination;
+    public function setEquatorialCoordinates(float $rightAscension, float $declination): Body {
+        $this->equatorialCoordinates["rightAscension"] = $rightAscension;
+        $this->equatorialCoordinates["declination"] = $declination;
         return $this;
     }
 
@@ -88,8 +99,21 @@ class Body {
     }
 
     public function setPhaseCharacteristics(float $angle, float $fraction): Body {
-        $this->phaseCharacteristics['angle'] = $angle;
-        $this->phaseCharacteristics['fraction'] = $fraction;
+        $this->phaseCharacteristics["angle"] = $angle;
+        $this->phaseCharacteristics["fraction"] = $fraction;
         return $this;
+    }
+
+    public function toArray(): array {
+        return [
+            "name" => $this->name,
+            "imageName" => strtolower($this->name) . ".png",
+            "horizontalCoordinates" => $this->horizontalCoordinates,
+            "equatorialCoordinates" => $this->equatorialCoordinates,
+            "constellation" => $this->constellation,
+            "elongation" => $this->elongation,
+            "magnitude" => $this->magnitude,
+            "phaseCharacteristics" => $this->phaseCharacteristics,
+        ];
     }
 }

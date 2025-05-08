@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 require_once __DIR__ . "/BaseController.php";
+
 require_once __DIR__ . "/../Core/TemplateEngine.php";
 require_once __DIR__ . "/../Service/AdminService.php";
 
 class AdminController extends BaseController {
     private templateEngine $templateEngine;
     private AdminService $adminService;
-    private string $templateBasePath  = __DIR__ . "/../view/admin/html/";
 
     public function __construct()
     {
@@ -18,14 +18,13 @@ class AdminController extends BaseController {
     }
 
     protected function renderTemplate(string $fileName, array $data = []): string {
-        $fileName = $this->templateBasePath . $fileName;
-        $htmlResponse = "";
+        $filePath = __DIR__ . "/../view/admin/html/" . $fileName;
 
-        if (file_exists($fileName)) {
-            $htmlResponse = $this->templateEngine->render($fileName, $data);
+        if (file_exists($filePath)) {
+            return $this->templateEngine->render($filePath, $data);
         }
 
-        return $htmlResponse;
+        return "";
     }
 
     public function listAction(): void

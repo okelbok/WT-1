@@ -18,7 +18,6 @@ class BodiesListRepository extends EntityRepository {
     }
 
     public function find(int $id): Entity {
-        $bodies = new BodiesList($id);
-        return $bodies;
+        return new BodiesList($id);
     }
 }
