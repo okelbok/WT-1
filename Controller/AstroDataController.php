@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 require_once __DIR__ . "/BaseController.php";
 
@@ -34,12 +34,17 @@ class AstroDataController extends BaseController {
     }
 
     private function getHeaderData(): array {
+        $date = (isset($_POST["date"])) ? DateTime::createFromFormat("d.m.Y", $_POST["date"]) : "";
+
         return [
             "isApplied" => isset($_POST["date"]),
             "date" => $_POST["date"] ?? "",
             "latitude" => $_POST["latitude"] ?? "",
             "longitude" => $_POST["longitude"] ?? "",
             "time" => $_POST["time"] ?? "",
+            "dateToString" => (isset($_POST["date"])) ?
+                DateTime::createFromFormat("d.m.Y", $_POST["date"])->format("F j, Y") :
+                "",
         ];
     }
 
@@ -52,8 +57,8 @@ class AstroDataController extends BaseController {
             $this->currentUser = new User(
                 rand(1, 255), // TODO: implement id allocation
                 [
-                    "latitude" => $_POST["latitude"],
-                    "longitude" => $_POST["longitude"],
+                    "latitude" => (float)$_POST["latitude"],
+                    "longitude" => (float)$_POST["longitude"],
                 ],
                 $_POST["date"],
                 $_POST["time"]

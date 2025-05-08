@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types = 1);
+
+require_once __DIR__ . "/../Model/BodiesList.php";
+
 class BodiesListRepository extends EntityRepository {
     public function create(Entity $entity): void {
 

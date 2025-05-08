@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 require_once __DIR__.  "/Entity.php";
 
@@ -11,9 +11,16 @@ class BodiesList extends Entity {
     public function __construct(int $id) {
         $this->id = $id;
         $this->bodies = array(
-            "Sun" => null, "Moon" => null,
-            "Mercury" => null, "Venus" => null, "Earth" => null, "Mars" => null,
-            "Jupiter" => null, "Saturn" => null, "Uranus" => null, "Neptune" => null);
+            "Sun" => null,
+            "Moon" => null,
+            "Mercury" => null,
+            "Venus" => null,
+            "Earth" => null,
+            "Mars" => null,
+            "Jupiter" => null,
+            "Saturn" => null,
+            "Uranus" => null,
+            "Neptune" => null);
     }
 
     public function getId(): int {

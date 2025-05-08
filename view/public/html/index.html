@@ -156,14 +156,14 @@
                     <div class="data-card">
                         <div class="data-card-header">
                             <img class="body-image"
-                                 src="/AstroCalendar/view/public/css//images/{body['imageName']}.png"
+                                 src="/AstroCalendar/view/public/images/{body['imageName']}"
                                  alt="{body['name']}">
                             <h3 class="body-name">{body['name']}</h3>
                         </div>
                         <div class="body-info">
                             <p><strong>Horizontal coordinates:</strong></p>
                             <p>Altitude: {body['horizontalCoordinates']['altitude']}°</p>
-                            <p>Azimuth: {body['equatorialCoordinates']['azimuth']}°</p>
+                            <p>Azimuth: {body['horizontalCoordinates']['azimuth']}°</p>
 
                             <p><strong>Equatorial coordinates:</strong></p>
                             <p>Right ascension: {body['equatorialCoordinates']['rightAscension']}h</p>

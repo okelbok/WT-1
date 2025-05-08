@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types = 1);
+
+require_once __DIR__ . "/../Model/Entity.php";
+
 abstract class EntityRepository {
     abstract public function create(Entity $entity): void;
     abstract public function read(Entity $entity): Entity;

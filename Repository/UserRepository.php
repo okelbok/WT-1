@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types = 1);
+
+require_once __DIR__ . "/../Model/User.php";
+
 class UserRepository extends EntityRepository {
     public function create(Entity $entity): void {
 

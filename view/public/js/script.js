@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const latitudeInput = document.getElementById('latitude-input');
     const longitudeInput = document.getElementById('longitude-input');
-    const submitButton = document.getElementById('submit-button');
-    const resetButton = document.getElementById('reset-button');
     const form = document.querySelector('form');
 
     function validateLatitude(latitude) {
@@ -37,21 +35,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function validateForm(event) {
-        if (event) event.preventDefault();
-
-        let isLatValid = validateField(
+        const isLatValid = validateField(
             latitudeInput,
             validateLatitude,
             'Latitude must be between -90 and 90'
         );
 
-        let isLngValid = validateField(
+        const isLngValid = validateField(
             longitudeInput,
             validateLongitude,
             'Longitude must be between -180 and 180'
         );
 
-        return isLatValid && isLngValid;
+        if (!isLatValid || !isLngValid) {
+            event.preventDefault();
+        }
     }
 
     function resetForm() {
@@ -61,12 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (form) {
         form.addEventListener('submit', validateForm);
-    } else if (submitButton) {
-        submitButton.addEventListener('click', validateForm);
-    }
-
-    if (resetButton) {
-        resetButton.addEventListener('click', resetForm);
+        form.addEventListener('reset', resetForm);
     }
 
     latitudeInput.addEventListener('input', function() {
