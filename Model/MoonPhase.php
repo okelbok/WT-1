@@ -6,9 +6,8 @@ class MoonPhase extends Entity {
     private int $id;
     private string $imageUrl;
 
-    function __construct(int $id, string $imageUrl) {
+    function __construct(int $id) {
         $this->id = $id;
-        $this->imageUrl = $imageUrl;
     }
 
     public function getId(): int {

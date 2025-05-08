@@ -69,8 +69,16 @@ class MoonPhaseService {
     }
 
     public function fetchMoonPhaseData(User $user): array {
+        if (!isset($this->currentMoonPhase)) {
+            $this->currentMoonPhase = new MoonPhase(
+                $user->getId()
+            );
+        }
+
         $imageUrl = $this->fetchData($user)["data"]["imageUrl"];
 
-        return ["moonPhase" => ["imageUrl" => $imageUrl]];
+        $this->currentMoonPhase->setImageUrl($imageUrl);
+
+        return ["moonPhase" => $this->currentMoonPhase->toArray()];
     }
 }
