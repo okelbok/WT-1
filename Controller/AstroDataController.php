@@ -17,6 +17,8 @@ class AstroDataController extends BaseController {
     private MoonPhaseService $moonPhaseService;
     private ?User $currentUser = null;
 
+    private const string TEMPLATE_BASE_PATH = __DIR__ . "/../view/public/html/";
+
     public function __construct() {
         $this->templateEngine = new TemplateEngine();
         $this->bodiesListService = new BodiesListService();
@@ -24,7 +26,7 @@ class AstroDataController extends BaseController {
     }
 
     protected function renderTemplate(string $fileName, array $data = []): string {
-        $filePath = __DIR__ . "/../view/public/html/" . $fileName;
+        $filePath = self::TEMPLATE_BASE_PATH . $fileName;
 
         if (file_exists($filePath)) {
             return $this->templateEngine->render($filePath, $data);

@@ -11,6 +11,9 @@ class BodiesListService {
     private string $apiKey;
     private BodiesList $currentBodiesList;
 
+    private const string MOON_BODY_NAME = "Moon";
+    private const string EARTH_BODY_NAME = "Earth";
+
     public function __construct() {
         $this->apiBodiesListUrl = $_ENV["ASTRO_API_URL_POSITIONS"];
         $this->apiKey = $_ENV["ASTRO_API_KEY"];
@@ -94,18 +97,18 @@ class BodiesListService {
                 $position["position"]["constellation"]["name"]
             );
 
-            if ($body->getName() !== "Earth") {
-                $body->setElongation($position["extraInfo"]["elongation"]);
-                $body->setMagnitude($position["extraInfo"]["magnitude"]);
-            }
-
-            if ($body->getName() === "Moon") {
+            if ($body->getName() === self::MOON_BODY_NAME) {
                 $phaseCharacteristics = [
                     "angle" => $position["extraInfo"]["phase"]["angel"],
                     "fraction" => $position["extraInfo"]["phase"]["fraction"],
                     "phaseName" => $position["extraInfo"]["phase"]["string"]
                 ];
                 $body->setPhaseCharacteristics($phaseCharacteristics);
+            }
+
+            if ($body->getName() !== self::EARTH_BODY_NAME) {
+                $body->setElongation($position["extraInfo"]["elongation"]);
+                $body->setMagnitude($position["extraInfo"]["magnitude"]);
             }
 
             $bodies[$body->getName()] = $body;
