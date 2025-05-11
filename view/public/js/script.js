@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function showError(input, message) {
         input.setAttribute('title', message);
-        input.style.border = '1px solid red';
+        input.style.border = '2px solid red';
         input.classList.add('error');
     }
 

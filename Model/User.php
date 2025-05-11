@@ -6,15 +6,12 @@ require_once __DIR__ . "/Entity.php";
 
 class User extends Entity {
     private int $id;
-    private array $coordinates;
-    private string $lastSelectedDate;
-    private string $lastSelectedTime;
+    private ?array $coordinates;
+    private ?string $lastSelectedDate;
+    private ?string $lastSelectedTime;
 
-    function __construct(int $id, array $coordinates, string $lastSelectedDate, string $lastTimeActive) {
+    function __construct(int $id) {
         $this->id = $id;
-        $this->coordinates = $coordinates;
-        $this->lastSelectedDate = $lastSelectedDate;
-        $this->lastSelectedTime = $lastTimeActive;
     }
 
     public function getId(): int {
@@ -31,9 +28,9 @@ class User extends Entity {
         return $this->coordinates;
     }
 
-    public function setCoordinates(float $longitude, float $latitude): array {
-        $this->coordinates["longitude"] = $longitude;
+    public function setCoordinates(float $latitude, float $longitude): array {
         $this->coordinates["latitude"] = $latitude;
+        $this->coordinates["longitude"] = $longitude;
 
         return $this->coordinates;
     }

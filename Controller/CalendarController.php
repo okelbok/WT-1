@@ -11,7 +11,7 @@ require_once __DIR__ . "/../Model/User.php";
 require_once __DIR__ . "/../Service/BodiesListService.php";
 require_once __DIR__ . "/../Service/MoonPhaseService.php";
 
-class AstroDataController extends BaseController {
+class CalendarController extends BaseController {
     private TemplateEngine $templateEngine;
     private BodiesListService $bodiesListService;
     private MoonPhaseService $moonPhaseService;
@@ -54,21 +54,12 @@ class AstroDataController extends BaseController {
 
     private function updateCurrentUser(): void {
         if ($this->currentUser === null) {
-            $this->currentUser = new User(
-                rand(1, 255), // TODO: implement id allocation
-                [
-                    "latitude" => (float)$_POST["latitude"],
-                    "longitude" => (float)$_POST["longitude"],
-                ],
-                $_POST["date"],
-                $_POST["time"]
-            );
+            $this->currentUser = new User(rand(1, 255));
         }
-        else {
-            $this->currentUser->setCoordinates($_POST["latitude"], $_POST["longitude"]);
-            $this->currentUser->setLastSelectedDate($_POST["date"]);
-            $this->currentUser->setLastSelectedTime($_POST["time"]);
-        }
+
+        $this->currentUser->setCoordinates((float)$_POST["latitude"], (float)$_POST["longitude"]);
+        $this->currentUser->setLastSelectedDate($_POST["date"]);
+        $this->currentUser->setLastSelectedTime($_POST["time"]);
     }
 
     private function executeAstroSearch(): void {

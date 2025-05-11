@@ -5,7 +5,7 @@ declare(strict_types = 1);
 class Router {
     private string $basePath = "/AstroCalendar";
     private array $routes = [
-        '/' => ['AstroDataController', 'listAction'],
+        '/' => ['CalendarController', 'listAction'],
 
         '/admin/files' => ['AdminController', 'listAction'],
         '/admin/files/upload' => ['AdminController', 'fileUploadAction'],

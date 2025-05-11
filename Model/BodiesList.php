@@ -20,7 +20,8 @@ class BodiesList extends Entity {
             "Jupiter" => null,
             "Saturn" => null,
             "Uranus" => null,
-            "Neptune" => null);
+            "Neptune" => null
+        );
     }
 
     public function getId(): int {
