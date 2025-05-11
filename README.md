@@ -3,7 +3,7 @@
 
 Даталогическая модель базы данных:
 
-![image](resources/database/scheme.png)
+![image](view/database/scheme.png)
 
 <hr>
 Колбеко Влада, гр. 351003.
