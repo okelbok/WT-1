@@ -7,12 +7,12 @@ class Router {
     private array $routes = [
         '/' => ['CalendarController', 'listAction'],
 
-        '/admin/files' => ['AdminController', 'listAction'],
-        '/admin/files/upload' => ['AdminController', 'fileUploadAction'],
-        '/admin/files/create-dir' => ['AdminController', 'createDirectoryAction'],
-        '/admin/files/delete' => ['AdminController', 'deleteItemAction'],
-        '/admin/files/edit' => ['AdminController', 'fileEditorAction'],
-        '/admin/files/save' => ['AdminController', 'saveFileAction'],
+        '/admin' => ['AdminController', 'listAction'],
+        '/admin/upload' => ['AdminController', 'fileUploadAction'],
+        '/admin/create-dir' => ['AdminController', 'createDirectoryAction'],
+        '/admin/delete' => ['AdminController', 'deleteItemAction'],
+        '/admin/edit' => ['AdminController', 'fileEditorAction'],
+        '/admin/save' => ['AdminController', 'saveFileAction'],
     ];
 
     private function extractPath($uri): string {

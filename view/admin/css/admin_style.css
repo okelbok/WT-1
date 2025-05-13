@@ -1,17 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap");
+/*noinspection CssUnknownTarget*/
+@import "/AstroCalendar/view/public/css/common.css";
 
 body {
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    font-family: "Poppins", sans-serif;
 }
 
 .file-manager {
+    height: 100%;
     padding: 20px;
-    background: #fff;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background: var(--additional-color);
 }
 
 .file-table {

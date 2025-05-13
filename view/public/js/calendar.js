@@ -77,7 +77,33 @@ const handleDateClick = (e) => {
     selectedDate = new Date(year, month, parseInt(button.textContent));
 };
 
-const displayDates = () => {
+
+const parseDateString = (dateString) => {
+    if (!dateString) return null;
+
+    const parts = dateString.split('.');
+    if (parts.length !== 3) return null;
+
+    const day = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1;
+    const year = parseInt(parts[2], 10);
+
+    if (isNaN(day) || isNaN(month) || isNaN(year)) return null;
+
+    return new Date(year, month, day);
+};
+
+const displayDates = (isInitialLoad = false) => {
+    if (dateInput.value.trim().length !== 0 && isInitialLoad) {
+        const parsedDate = parseDateString(dateInput.value);
+
+        if (parsedDate) {
+            selectedDate = parsedDate;
+            year = parsedDate.getFullYear();
+            month = parsedDate.getMonth();
+        }
+    }
+
     updateYearMonth();
 
     dates.innerHTML = "";
@@ -128,4 +154,4 @@ const createButton = (text, isDisabled = false, type = 0) => {
     return button;
 };
 
-displayDates();
+displayDates(true);
