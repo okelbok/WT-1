@@ -65,8 +65,6 @@ class MoonPhaseService {
             exit();
         }
 
-        file_put_contents(__DIR__ . "/../resources/". rand(0, 255) . "_moon_phase.json", $response);
-
         return json_decode($response, true);
     }
 

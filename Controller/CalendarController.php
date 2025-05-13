@@ -42,9 +42,9 @@ class CalendarController extends BaseController {
             "latitude" => $_POST["latitude"] ?? "",
             "longitude" => $_POST["longitude"] ?? "",
             "time" => $_POST["time"] ?? "",
-            "dateToString" => (isset($_POST["date"])) ?
-                DateTime::createFromFormat("d.m.Y", $_POST["date"])->format("F j, Y") :
-                "",
+            "dateTime" => (isset($_POST["date"]) && isset($_POST["time"])) ?
+                DateTime::createFromFormat("d.m.Y, H:i", $_POST["date"] . ", " . $_POST["time"])->
+                format("F j Y, H:i") : "",
         ];
     }
 

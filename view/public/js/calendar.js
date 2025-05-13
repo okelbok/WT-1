@@ -101,7 +101,7 @@ const displayDates = () => {
         count++;
     }
 
-    for (let i = 1; i <= 7 - (count % 7); i++) {
+    for (let i = 1; i <= (7 - (count % 7)) % 7; i++) {
         const button = createButton(i, true, 1);
         dates.appendChild(button);
     }
