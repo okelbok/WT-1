@@ -4,19 +4,21 @@ declare(strict_types = 1);
 
 require_once __DIR__ . "/../Model/User.php";
 require_once __DIR__ . "/../Model/MoonPhase.php";
+require_once __DIR__ . "/../Repository/MoonPhaseRepository.php";
 
 class MoonPhaseService {
     private string $apiMoonPhaseUrl;
     private string $apiKey;
-    private MoonPhase $currentMoonPhase;
+    private MoonPhaseRepository $repository;
 
     public function __construct() {
         $this->apiMoonPhaseUrl = $_ENV["ASTRO_API_URL_MOON_PHASE"];
         $this->apiKey = $_ENV["ASTRO_API_KEY"];
+        $this->repository = new MoonPhaseRepository();
     }
 
     private function buildPostFields(User $user): string {
-        $postFields = [
+        return json_encode([
             "style" => [
                 "moonStyle" => "default",
                 "backgroundStyle" => "stars",
@@ -25,17 +27,15 @@ class MoonPhaseService {
                 "textColor" => "#ffffff"
             ],
             "observer" => [
-                "latitude" => $user->getCoordinates()["latitude"],
-                "longitude" => $user->getCoordinates()["longitude"],
-                "date" => DateTime::createFromFormat("d.m.Y", $user->getLastSelectedDate())->format("Y-m-d"),
+                "latitude" => $user->getLatitude(),
+                "longitude" => $user->getLongitude(),
+                "date" => $user->getLastSelectedDate()->format("Y-m-d"),
             ],
             "view" => [
                 "type" => "portrait-simple",
                 "parameters" => []
             ]
-        ];
-
-        return json_encode($postFields);
+        ]);
     }
 
     private function fetchData(User $user): array {
@@ -68,17 +68,32 @@ class MoonPhaseService {
         return json_decode($response, true);
     }
 
-    public function fetchMoonPhaseData(User $user): array {
-        if (!isset($this->currentMoonPhase)) {
-            $this->currentMoonPhase = new MoonPhase(
-                $user->getId()
-            );
+    public function getMoonPhase(User $user): array {
+        $latitude = $user->getLatitude();
+        $longitude = $user->getLongitude();
+        $date = $user->getLastSelectedDate();
+
+        $moonPhase = $this->repository->findByCoordinatesAndDate(
+            $latitude,
+            $longitude,
+            $date
+        );
+
+        if ($moonPhase !== null) {
+            return ["moonPhase" => $moonPhase->toArray()];
         }
 
-        $imageUrl = $this->fetchData($user)["data"]["imageUrl"];
+        $apiData = $this->fetchData($user);
+        $imageUrl = $apiData["data"]["imageUrl"];
 
-        $this->currentMoonPhase->setImageUrl($imageUrl);
+        $moonPhase = new MoonPhase(0);
+        $moonPhase->setLatitude($latitude);
+        $moonPhase->setLongitude($longitude);
+        $moonPhase->setDate($date->format("d.m.Y"));
+        $moonPhase->setImageUrl($imageUrl);
 
-        return ["moonPhase" => $this->currentMoonPhase->toArray()];
+        $moonPhase = $this->repository->create($moonPhase);
+
+        return ["moonPhase" => $moonPhase->toArray()];
     }
 }

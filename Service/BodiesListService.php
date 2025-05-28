@@ -5,11 +5,13 @@ declare(strict_types = 1);
 require_once __DIR__ . "/../Model/User.php";
 require_once __DIR__ . "/../Model/Body.php";
 require_once __DIR__ . "/../Model/BodiesList.php";
+require_once __DIR__ . "/../Repository/BodiesListRepository.php";
 
 class BodiesListService {
     private string $apiBodiesListUrl;
     private string $apiKey;
     private BodiesList $currentBodiesList;
+    private BodiesListRepository $repository;
 
     private const string MOON_BODY_NAME = "Moon";
     private const string EARTH_BODY_NAME = "Earth";
@@ -17,14 +19,14 @@ class BodiesListService {
     public function __construct() {
         $this->apiBodiesListUrl = $_ENV["ASTRO_API_URL_POSITIONS"];
         $this->apiKey = $_ENV["ASTRO_API_KEY"];
+        $this->repository = new BodiesListRepository();
     }
 
     private function buildURLRequest(User $user): string {
-        $coordinates = $user->getCoordinates();
-        $latitude = $coordinates["latitude"];
-        $longitude = $coordinates["longitude"];
-        $date = DateTime::createFromFormat("d.m.Y", $user->getLastSelectedDate());
-        $time =$user->getLastSelectedTime() . ":00";
+        $latitude = $user->getLatitude();
+        $longitude = $user->getLongitude();
+        $date = $user->getLastSelectedDate();
+        $time = $user->getLastSelectedTime();
 
         $queryParams = http_build_query(
             [
@@ -33,7 +35,7 @@ class BodiesListService {
                 "elevation" => 0,
                 "from_date" => $date->format("Y-m-d"),
                 "to_date" => $date->format("Y-m-d"),
-                "time" => $time,
+                "time" => $time->format("H:i:s"),
                 "output" => "rows"
             ]
         );
@@ -70,13 +72,37 @@ class BodiesListService {
         return json_decode($response, true);
     }
 
-    public function fetchBodiesListData(User $user): array {
+    public function getBodiesList(User $user): array {
+        $latitude = $user->getLatitude();
+        $longitude = $user->getLongitude();
+        $date = $user->getLastSelectedDate();
+        $time = $user->getLastSelectedTime();
+
+        $bodiesList = $this->repository->findByCoordinatesAndDateTime(
+            $latitude,
+            $longitude,
+            $date,
+            $time
+        );
+
+        if ($bodiesList !== null) {
+            $this->currentBodiesList = $bodiesList;
+            $bodiesData = [];
+
+            foreach ($this->currentBodiesList->getBodies() as $body) {
+                if ($body instanceof Body) {
+                    $bodiesData[] = $body->toArray();
+                }
+            }
+
+            return ["bodies" => $bodiesData];
+        }
+
         if (!isset($this->currentBodiesList)) {
-            $this->currentBodiesList = new BodiesList($user->getId());
+            $this->currentBodiesList = new BodiesList(0);
         }
 
         $url = $this->buildURLRequest($user);
-
         $data = $this->fetchData($url)["data"]["rows"];
 
         $bodies = $this->currentBodiesList->getBodies();
@@ -87,13 +113,10 @@ class BodiesListService {
 
             $body = new Body(
                 $bodyData["body"]["name"],
-
                 $position["position"]["horizontal"]["altitude"]["string"],
                 $position["position"]["horizontal"]["azimuth"]["string"],
-
                 $position["position"]["equatorial"]["rightAscension"]["string"],
                 $position["position"]["equatorial"]["declination"]["string"],
-
                 $position["position"]["constellation"]["name"]
             );
 
@@ -115,9 +138,14 @@ class BodiesListService {
             $bodiesData[] = $body->toArray();
         }
 
+        $this->currentBodiesList->setLatitude($latitude);
+        $this->currentBodiesList->setLongitude($longitude);
+        $this->currentBodiesList->setDate($date->format("d.m.Y"));
+        $this->currentBodiesList->setTime($date->format("H:i") . ":00");
         $this->currentBodiesList->setBodies($bodies);
+
+        $this->repository->create($this->currentBodiesList);
 
         return ["bodies" => $bodiesData];
     }
-
 }

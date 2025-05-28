@@ -8,21 +8,23 @@ require_once __DIR__ . "/../Core/TemplateEngine.php";
 
 require_once __DIR__ . "/../Model/User.php";
 
-require_once __DIR__ . "/../Service/BodiesListService.php";
-require_once __DIR__ . "/../Service/MoonPhaseService.php";
+require_once __DIR__ . "/../Service/UserService.php";
+require_once __DIR__ . "/../Service/CalendarService.php";
 
 class CalendarController extends BaseController {
     private TemplateEngine $templateEngine;
-    private BodiesListService $bodiesListService;
-    private MoonPhaseService $moonPhaseService;
+    private CalendarService $calendarService;
+    private UserService $userService;
     private ?User $currentUser = null;
 
     private const string TEMPLATE_BASE_PATH = __DIR__ . "/../view/public/html/";
 
     public function __construct() {
         $this->templateEngine = new TemplateEngine();
-        $this->bodiesListService = new BodiesListService();
-        $this->moonPhaseService = new MoonPhaseService();
+        $this->calendarService = new CalendarService();
+        $this->userService = new UserService();
+
+        $this->currentUser = $this->userService->getUser(1);
     }
 
     protected function renderTemplate(string $fileName, array $data = []): string {
@@ -53,13 +55,12 @@ class CalendarController extends BaseController {
     }
 
     private function updateCurrentUser(): void {
-        if ($this->currentUser === null) {
-            $this->currentUser = new User(rand(1, 255));
-        }
-
-        $this->currentUser->setCoordinates((float)$_POST["latitude"], (float)$_POST["longitude"]);
+        $this->currentUser->setLatitude((float)$_POST["latitude"]);
+        $this->currentUser->setLongitude((float)$_POST["longitude"]);
         $this->currentUser->setLastSelectedDate($_POST["date"]);
         $this->currentUser->setLastSelectedTime($_POST["time"]);
+
+        $this->userService->updateUser($this->currentUser);
     }
 
     private function executeAstroSearch(): void {
@@ -67,8 +68,7 @@ class CalendarController extends BaseController {
 
         $data = array_merge(
             $this->getHeaderData(),
-            $this->bodiesListService->fetchBodiesListData($this->currentUser),
-            $this->moonPhaseService->fetchMoonPhaseData($this->currentUser)
+            $this->calendarService->getCalendarData($this->currentUser)
         );
 
         echo $this->renderTemplate("index.html", $data);
